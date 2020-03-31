@@ -18,7 +18,7 @@ AnalogOut Aout(DAC0_OUT);
 
 AnalogIn Ain(A0);
 
-int evaluate(float* ,float);
+int evaluate(float* ,float,int);
 float data_gathered[300];
 
 
@@ -28,30 +28,29 @@ int main(){
     display = table[0];
     while(1){
         if(Switch == 0){ // evaluate
-            redLED = 1;
-            greenLED = 0;
+            redLED = 0;
+            greenLED = 1;
             display = 0;
             // gather data
-            for(int i =0;i<300;i++){
+            for(int i =0;i<50;i++){
                 data_gathered[i] = Ain;
                 wait(samp_interval);
             }
             // evaluate frequency
-            result = evaluate(data_gathered,samp_interval);
+            result = evaluate(data_gathered,samp_interval,50);
             // output to PC
-            for (int i = 0; i < 300; i++){
-                 pc.printf("%1.3f\r\n", data_gathered[i]);
-            }
+            
             // output frequency
             string temp = to_string(result);
             int length = temp.size();
-            int display_clock = 0;
+            int display_clock = 499;
             int i = 0;
             int j = 0;
-            while(Switch == 0){
+            int k = 0;
+            while(1){
                 display_clock++;
                 j++;
-                if(display_clock == 1000){
+                if(display_clock == 500){
                     display_clock = 0;
                     if(i == length -1){
                         display = table[int(temp[i])-48]+128;
@@ -66,13 +65,23 @@ int main(){
                 if(j==999){
                     j = 0;
                 }
+                if(k < 300){
+                    data_gathered[i] = Ain;
+                    k++;
+                }
+                else if(k == 300){
+                    for (int i = 0; i < 300; i++){
+                        pc.printf("%1.3f\r\n", data_gathered[i]);
+                    }
+                    k++;
+                }
                 wait(0.001);  
             }
         }
 
         else{
-            redLED = 0;
-            greenLED = 1;
+            redLED = 1;
+            greenLED = 0;
             display = 0;
         }
     }
