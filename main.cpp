@@ -47,7 +47,7 @@ int main(){
             int i = 0;
             int j = 0;
             int k = 0;
-            while(1){
+            while(Switch == 0){
                 display_clock++;
                 j++;
                 if(display_clock == 500){
