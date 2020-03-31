@@ -41,7 +41,6 @@ int main(){
             // output to PC
             for (int i = 0; i < 300; i++){
                  pc.printf("%1.3f\r\n", data_gathered[i]);
-                wait(0.005);
             }
             // output frequency
             string temp = to_string(result);
