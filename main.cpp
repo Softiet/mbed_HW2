@@ -27,7 +27,7 @@ int main(){
     int result;
     display = table[0];
     while(1){
-        if(1){ // evaluate
+        if(Switch == 0){ // evaluate
             redLED = 1;
             greenLED = 0;
             display = 0;
@@ -49,7 +49,7 @@ int main(){
             int display_clock = 0;
             int i = 0;
             int j = 0;
-            while(1){
+            while(Switch == 0){
                 display_clock++;
                 j++;
                 if(display_clock == 1000){
